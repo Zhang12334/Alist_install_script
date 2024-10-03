@@ -9,7 +9,7 @@ echo "3. 不使用加速地址"
 echo -n "请输入你的选择: "
 read choice1
 if [ "$choice1" -eq 1 ]; then
-    useproxy="https://github.moeyy.xyz/"
+    useproxy="https://ghp.ci/"
 elif [ "$choice1" -eq 2 ]; then
     useproxy="https://mirror.ghproxy.com/"
 elif [ "$choice1" -eq 3 ]; then
