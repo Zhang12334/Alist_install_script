@@ -1,20 +1,7 @@
 #!/bin/bash
 
-#询问要安装的版本
-
-clear
-echo -e "请输入要安装的版本 (如留空则默认安装最新版本)"
-echo -e "例：v3.37.4"
-echo
-read VERSION
-
-# 如果用户未输入版本号，则设置为latest
-if [ -z "$VERSION" ]; then
-  VERSION="latest"
-  echo -e "未输入版本号，默认安装最新版本: $VERSION"
-else
-  echo -e "安装指定版本: $VERSION"
-fi
+#版本=latest
+VERSION="latest"
 
 
 #固定安装路径
@@ -85,23 +72,31 @@ elif [ "$platform" = "armv7r" ]; then
 fi
 
 # 提示用户是否要使用 GHProxy
-echo -e "请输入是否要使用GHProxy"
-echo -e "使用请输入1，不使用请输入0"
+echo -e "请输入是否要使用 GHProxy"
+echo -e "使用请输入 1，不使用请输入 0"
 echo
 
 # 读取输入
-read use_ghproxy
+read -r use_ghproxy
 
-# 判断
-if [ "$use_ghproxy" -eq 1 ]; then
+# 检查输入是否为空
+if [ -z "$use_ghproxy" ]; then
+  echo -e "输入无效，已自动选择使用 GHProxy"
   GH_PROXY="https://mirror.ghproxy.com/"
-  echo -e "已选择使用GHProxy，下载代理设置为: $GH_PROXY"
-elif [ "$use_ghproxy" -eq 0 ]; then
-  GH_PROXY=''
-  echo -e "已选择不使用GHProxy"
 else
-  echo -e "输入无效，已自动选择使用GHProxy"
-  GH_PROXY="https://mirror.ghproxy.com/"
+  # 判断
+  if [[ "$use_ghproxy" =~ ^[01]$ ]]; then
+    if [ "$use_ghproxy" -eq 1 ]; then
+      GH_PROXY="https://mirror.ghproxy.com/"
+      echo -e "已选择使用 GHProxy，下载代理设置为: $GH_PROXY"
+    elif [ "$use_ghproxy" -eq 0 ]; then
+      GH_PROXY=''
+      echo -e "已选择不使用 GHProxy"
+    fi
+  else
+    echo -e "输入无效，已自动选择使用 GHProxy"
+    GH_PROXY="https://mirror.ghproxy.com/"
+  fi
 fi
 
 
