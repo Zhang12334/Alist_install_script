@@ -287,7 +287,7 @@ UPDATE() {
     echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
     curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
     tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
-    if [ -f $INSTALL_PATH/alist ]; then
+    if [ -f /tmp/alist.tar.gz ]; then
       echo -e "${GREEN_COLOR} 新版本 Alist 下载成功 ${RES}"
     else
       echo -e "${RED_COLOR}下载 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
