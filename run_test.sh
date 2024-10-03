@@ -64,9 +64,10 @@ case "$choice" in
         curl -fsSL -L "${useproxy}${download_url}" | bash -s uninstall
         ;;
     3) 
+        read -p "请输入要安装的版本，默认安装最新版！\n理论可通过本选项进行降级，降级操作前请先备份数据！\n请输入（例: 3.2.0）：" version
+        version=${version:-latest}
         echo "正在升级..."
-        version="latest"
-        curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy
+        curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy $version
         ;;
     *) 
         echo "无效的选择，请输入1-3的数字"
