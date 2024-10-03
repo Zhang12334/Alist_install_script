@@ -30,7 +30,6 @@ BLUE_COLOR='\e[1;34m'
 PINK_COLOR='\e[1;35m'
 SHAN='\e[1;33;5m'
 RES='\e[0m'
-clear
 
 # 获取架构
 if command -v arch >/dev/null 2>&1; then
