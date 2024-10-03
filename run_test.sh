@@ -39,7 +39,7 @@ case $choice1 in
             useproxy="https://ghp.ci/" 
         fi
         ;;
-    7) useproxy="https://github.com/" ;;
+    7) useproxy="" ;;
     *) 
         echo "无效的选择，默认使用https://ghp.ci/加速地址"
         useproxy="https://ghp.ci/" 
