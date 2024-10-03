@@ -3,7 +3,7 @@
 #本脚本链接:    bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run_test.sh)
 # 下载地址
 # download_url="Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
-download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run_test.sh"
+download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install_test.sh"
 test_file_url="https://github.com/Zhang12334/test_ghmirror/releases/latest/download/test.txt"
 
 # 清屏
