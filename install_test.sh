@@ -145,15 +145,13 @@ CHECK() {
 INSTALL() {
   clear
   # 下载 Alist 程序
-  echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
+  echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
   #新增支持自定义版本
   if [ "$download_VERSION" == "latest" ]; then
       curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
   else
-      curl -L ${GH_PROXY}alist-org/alist/releases/download/v${download_VERSION}/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/download/v${download_VERSION}/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
   fi
-  
-  curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
   tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
   if [ -f $INSTALL_PATH/alist ]; then
     echo -e "${GREEN_COLOR} alist-linux-$ARCH.tar.gz 下载成功 ${RES}"
