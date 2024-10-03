@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# 获取最新版本信息
-response=$(curl -s https://api.github.com/repos/Zhang12334/Alist_install_bash/releases/latest)
-version=$(echo "$response" | grep 'tag_name' | cut -d'"' -f4 | awk '{print substr($0, 2, length($0) - 1)}')
-
 # 下载地址
-download_url="https://github.com/Zhang12334/Alist_install_bash/releases/download/v$version/install.sh"
+download_url="https://github.com/Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
 
 #test_version
-#download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
+#test_download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
 
 # 清屏
 clear
