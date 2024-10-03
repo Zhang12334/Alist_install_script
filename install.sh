@@ -95,14 +95,14 @@ read use_ghproxy
 
 # 判断
 if [ "$use_ghproxy" -eq 1 ]; then
-  GH_PROXY='https://mirror.ghproxy.com/'
+  GH_PROXY="https://mirror.ghproxy.com/"
   echo -e "已选择使用GHProxy，下载代理设置为: $GH_PROXY"
 elif [ "$use_ghproxy" -eq 0 ]; then
   GH_PROXY=''
   echo -e "已选择不使用GHProxy"
 else
   echo -e "输入无效，已自动选择使用GHProxy"
-  GH_PROXY='https://mirror.ghproxy.com/'
+  GH_PROXY="https://mirror.ghproxy.com/"
 fi
 
 
