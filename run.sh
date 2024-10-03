@@ -43,7 +43,7 @@ case $choice1 in
         useproxy="https://ghp.ci/https://github.com/" 
         ;;
 esac
-
+echo
 echo "请选择操作："
 echo "1. 安装"
 echo "2. 卸载"
