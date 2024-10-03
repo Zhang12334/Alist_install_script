@@ -71,35 +71,13 @@ elif [ "$platform" = "armv7r" ]; then
   ARCH=musleabihf-armv7r
 fi
 
-# 提示用户是否要使用 GHProxy
-echo -e "请输入是否要使用 GHProxy"
-echo -e "使用请输入 1，不使用请输入 0"
-echo
-
-# 读取输入
-read -r use_ghproxy
-
-# 检查输入是否为空
-if [ -z "$use_ghproxy" ]; then
-  echo -e "输入为空，已自动选择使用 GHProxy"
-  GH_PROXY="https://mirror.ghproxy.com/"
+if [ -n "$2" ]; then
+  echo -e "已选择使用代理地址"
+  use_ghproxy="$2"
 else
-  # 判断是否为有效的整数（0或1）
-  if [[ "$use_ghproxy" =~ ^[01]$ ]]; then
-    if [ "$use_ghproxy" -eq 1 ]; then
-      GH_PROXY="https://mirror.ghproxy.com/"
-      echo -e "已选择使用 GHProxy，下载代理设置为: $GH_PROXY"
-    elif [ "$use_ghproxy" -eq 0 ]; then
-      GH_PROXY=''
-      echo -e "已选择不使用 GHProxy"
-    fi
-  else
-    echo -e "输入无效，已自动选择使用 GHProxy"
-    GH_PROXY="https://mirror.ghproxy.com/"
-  fi
+  echo -e "已选择使用Github地址"
+  use_ghproxy=''
 fi
-
-
 
 #各种检查
 
