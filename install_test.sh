@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #版本设置为传参
-VERSION=$3
+VERSION=latest
+download_VERSION=$3
 
 
 #固定安装路径
