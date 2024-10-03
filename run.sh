@@ -22,7 +22,7 @@ echo
 read -p "请输入你的选择: " choice1
 
 # 根据用户选择设置代理
-case "$choice1" in
+case $choice1 in
     1) useproxy="https://ghp.ci/" ;;
     2) useproxy="https://ghproxy.net/" ;;
     3) useproxy="https://ghproxy.cn/" ;;
@@ -48,15 +48,15 @@ read choice
 case "$choice" in
     1) 
         echo "正在安装..."
-        curl -fsSL -L -H "Cache-Control: no-cache" "https://ghp.ci/$download_url" | bash -s install $useproxy
+        curl -fsSL -L "https://ghp.ci/$download_url" | bash -s install $useproxy
         ;;
     2) 
         echo "正在卸载..."
-        curl -fsSL -L -H "Cache-Control: no-cache" "https://ghp.ci/$download_url" | bash -s uninstall
+        curl -fsSL -L "https://ghp.ci/$download_url" | bash -s uninstall
         ;;
     3) 
         echo "正在升级..."
-        curl -fsSL -L -H "Cache-Control: no-cache" "https://ghp.ci/$download_url" | bash -s update $useproxy
+        curl -fsSL -L "https://ghp.ci/$download_url" | bash -s update $useproxy
         ;;
     *) 
         echo "无效的选择，请输入1-3的数字"
