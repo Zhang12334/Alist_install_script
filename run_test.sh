@@ -1,5 +1,6 @@
 #!/bin/bash
 #本版本为未经测试的beta版本，非必要请勿使用
+#本脚本链接:    bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run_test.sh)
 # 下载地址
 # download_url="Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
 download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run_test.sh"
