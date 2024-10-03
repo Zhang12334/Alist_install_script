@@ -81,10 +81,10 @@ read -r use_ghproxy
 
 # 检查输入是否为空
 if [ -z "$use_ghproxy" ]; then
-  echo -e "输入无效，已自动选择使用 GHProxy"
+  echo -e "输入为空，已自动选择使用 GHProxy"
   GH_PROXY="https://mirror.ghproxy.com/"
 else
-  # 判断
+  # 判断是否为有效的整数（0或1）
   if [[ "$use_ghproxy" =~ ^[01]$ ]]; then
     if [ "$use_ghproxy" -eq 1 ]; then
       GH_PROXY="https://mirror.ghproxy.com/"
