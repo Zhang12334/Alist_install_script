@@ -23,11 +23,11 @@ echo "3. 升级"
 echo -n "请输入你的选择: "
 read choice
 if [ "$choice" -eq 1 ]; then
-    curl -fsSL -L "$download_url" | bash -s install $useproxy
+    curl -fsSL -L -H "Cache-Control: no-cache" "$download_url" | bash -s install $useproxy
 elif [ "$choice" -eq 2 ]; then
-    curl -fsSL -L "$download_url" | bash -s uninstall
+    curl -fsSL -L -H "Cache-Control: no-cache" "$download_url" | bash -s uninstall
 elif [ "$choice" -eq 3 ]; then
-    curl -fsSL -L "$download_url" | bash -s update $useproxy
+    curl -fsSL -L -H "Cache-Control: no-cache" "$download_url" | bash -s update $useproxy
 else
     echo "无效的选择，请输入1-3的数字"
     exit 1
