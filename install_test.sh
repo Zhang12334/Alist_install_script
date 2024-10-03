@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#安装版本设置为传参，升级版本写死为最新
-VERSION=latest
+#安装版本设置为传参
 download_VERSION=$3
 
 
@@ -284,11 +283,15 @@ UPDATE() {
     systemctl stop alist
     # 备份 alist 二进制文件，供下载更新失败回退
     cp $INSTALL_PATH/alist /tmp/alist.bak
-    echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-    curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
-    tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
+    echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
+    #新增支持自定义版本
+    if [ "$download_VERSION" == "latest" ]; then
+        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    else
+        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    fi
     if [ -f /tmp/alist.tar.gz ]; then
-      echo -e "${GREEN_COLOR} 新版本 Alist 下载成功 ${RES}"
+      echo -e "${GREEN_COLOR} Alist ${download_VERSION} 下载成功 ${RES}"
     else
       echo -e "${RED_COLOR}下载 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
       echo "正在回退更改"
