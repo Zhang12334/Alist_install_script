@@ -19,8 +19,7 @@ echo "4. 使用 https://github.moeyy.xyz/"
 echo "5. 使用 https://gh.llkk.cc/"
 echo "6. 不使用加速地址"
 echo
-echo -n "请输入你的选择: "
-read choice1
+read -p "请输入你的选择: " choice1
 
 # 根据用户选择设置代理
 case "$choice1" in
