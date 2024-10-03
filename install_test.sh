@@ -232,7 +232,7 @@ SUCCESS() {
   echo -e "程序使用urandom生成20位强密码"
   echo -e "本密码仅显示一次，请妥善保存！"  
   echo -e "请勿泄漏本界面内容给任何人！！"  
-  echo -e "----------密码更改方式---------"  
+  echo -e "---------密码更改方式--------"  
   echo -e "先cd到alist所在目录:"
   echo -e "${GREEN_COLOR}cd $INSTALL_PATH${RES}"
   echo -e "随机设置新密码:"
