@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 下载地址
-download_url="https://github.com/Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
+download_url="Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
 
 #test_version
 #test_download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
@@ -27,8 +27,8 @@ case $choice1 in
     5) useproxy="https://gh.llkk.cc/https://github.com/" ;;
     6) useproxy="https://github.com/" ;;
     *) 
-        echo "无效的选择，默认使用不加速地址"
-        useproxy="" 
+        echo "无效的选择，默认使用https://ghp.ci/加速地址"
+        useproxy="https://ghp.ci/https://github.com/" 
         ;;
 esac
 clear
@@ -41,6 +41,7 @@ read choice
 case "$choice" in
     1) 
         echo "正在安装..."
+        echo "${useproxy}${download_url}"
         curl -fsSL -L "${useproxy}${download_url}" | bash -s install $useproxy
         ;;
     2) 
