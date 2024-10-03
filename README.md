@@ -11,5 +11,6 @@ bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist
 | X86_64             | Debian-12.6   | E5-2680V4    |       中国大陆              | ✅       |
 | X86_64             | ArchLinux   | G4400    |       中国大陆              | ✅       |
 | X86_64             | Debian-10.13   | i7-8700    |       卢森堡              | ✅       |
+| X86_64             | Debian-10   | E3-1245V2    |       法国              | ✅       |
 | 欢迎补充           |          |              |                     |          |
 
