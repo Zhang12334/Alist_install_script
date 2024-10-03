@@ -71,13 +71,7 @@ elif [ "$platform" = "armv7r" ]; then
   ARCH=musleabihf-armv7r
 fi
 
-if [ -n "$2" ]; then
-  echo -e "已选择使用代理地址"
-  use_ghproxy="$2"
-else
-  echo -e "已选择使用Github地址"
-  use_ghproxy=''
-fi
+GH_PROXY="$2"
 
 #各种检查
 
