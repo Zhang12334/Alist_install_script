@@ -296,30 +296,6 @@ UPDATE() {
       echo -e "\r\n${RED_COLOR}出错了${RES}，V3与V2不兼容，请先手动卸载V2再使用本脚本安装V3！\r\n"
       exit 1
     fi
-
-    # 提示用户是否要使用 GHProxy
-    echo -e "请输入是否要使用GHProxy"
-    echo -e "使用请输入1，不使用请输入0"
-    echo
-    
-    # 读取输入
-    read use_ghproxy_1
-    
-    # 判断
-    if [ "$use_ghproxy_1" -eq 1 ]; then
-      GH_PROXY='https://mirror.ghproxy.com/'
-      echo -e "已选择使用GHProxy，下载代理设置为: $GH_PROXY"
-    elif [ "$use_ghproxy_1" -eq 0 ]; then
-      GH_PROXY=''
-      echo -e "已选择不使用GHProxy"
-    else
-      echo -e "输入无效，已自动选择使用GHProxy"
-      GH_PROXY='https://mirror.ghproxy.com/'
-    fi
-
-
-
-
     echo
     echo -e "${GREEN_COLOR}停止 Alist 进程${RES}\r\n"
     systemctl stop alist
