@@ -44,7 +44,6 @@ case $choice1 in
         ;;
 esac
 
-clear
 echo "请选择操作："
 echo "1. 安装"
 echo "2. 卸载"
