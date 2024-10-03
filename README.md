@@ -9,5 +9,6 @@ bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist
 | ArmV7L             | Armbian-23.02  | 玩客云       |    中国大陆                 | ✅       |
 | Aarch64            | Ubuntu-20.04   | Oracle ARM64 |      加拿大               | ✅       |
 | X86_64             | Debian-12.6   | E5-2680V4    |       中国大陆              | ✅       |
+| X86_64             | ArchLinux   | G4400    |       中国大陆              | ✅       |
 | 欢迎补充           |          |              |                     |          |
 
