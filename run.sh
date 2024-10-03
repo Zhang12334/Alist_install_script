@@ -5,9 +5,10 @@ response=$(curl -s https://api.github.com/repos/Zhang12334/Alist_install_bash/re
 version=$(echo "$response" | grep 'tag_name' | cut -d'"' -f4 | awk '{print substr($0, 2, length($0) - 1)}')
 
 # 下载地址
-#download_url="https://github.com/Zhang12334/Alist_install_bash/releases/download/v$version/install.sh"
+download_url="https://github.com/Zhang12334/Alist_install_bash/releases/download/v$version/install.sh"
 
-download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
+#test_version
+#download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
 
 # 清屏
 clear
@@ -34,8 +35,6 @@ case $choice1 in
         useproxy="" 
         ;;
 esac
-
-# 清屏
 clear
 echo "请选择操作："
 echo "1. 安装"
@@ -43,8 +42,6 @@ echo "2. 卸载"
 echo "3. 升级"
 echo -n "请输入你的选择: "
 read choice
-
-# 执行相应操作
 case "$choice" in
     1) 
         echo "正在安装..."
@@ -63,5 +60,3 @@ case "$choice" in
         exit 1 
         ;;
 esac
-
-# 脚本结束
