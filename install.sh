@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#版本=latest
-VERSION="latest"
+#安装版本设置为传参
+download_VERSION=$3
 
 
 #固定安装路径
@@ -144,19 +144,24 @@ CHECK() {
 INSTALL() {
   clear
   # 下载 Alist 程序
-  echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-  curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+  echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
+  #新增支持自定义版本
+  if [ "$download_VERSION" == "latest" ]; then
+      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+  else
+      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+  fi
   tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
-
-
-
   if [ -f $INSTALL_PATH/alist ]; then
     echo -e "${GREEN_COLOR} alist-linux-$ARCH.tar.gz 下载成功 ${RES}"
   else
-    echo -e "${RED_COLOR} alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络！${RES}"
+	if [ "$download_VERSION" == "latest" ]; then
+		echo -e "${RED_COLOR} alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络状况！${RES}"
+	else
+		echo -e "${RED_COLOR} v${download_VERSION} 版 alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络或检查安装版本号是否有效！${RES}"
+	fi
     exit 1
   fi
-
   # 删除下载缓存
   rm -f /tmp/alist*
 }
@@ -198,6 +203,9 @@ SUCCESS() {
   ipv6_address_out=$(curl -6 -s 6.ipw.cn)
   ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
+  cd /opt/alist
+  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
+  ./alist admin set $adminpwd > /dev/null 2>&1 &
   clear
   echo "Alist 安装成功！"
   echo
@@ -216,10 +224,14 @@ SUCCESS() {
   fi
   
   echo
-  
   echo -e "配置文件路径：${GREEN_COLOR}$INSTALL_PATH/data/config.json${RES}"
-
-  echo -e "---------如何获取密码？--------"
+  echo -e "-----------使用说明----------"
+  echo -e "Alist账号名称：admin"
+  echo -e "自动生成强密码：$adminpwd"
+  echo -e "程序使用urandom生成20位强密码"
+  echo -e "本密码仅显示一次，请妥善保存！"  
+  echo -e "请勿泄漏本界面内容给任何人！！"  
+  echo -e "---------密码更改方式--------"  
   echo -e "先cd到alist所在目录:"
   echo -e "${GREEN_COLOR}cd $INSTALL_PATH${RES}"
   echo -e "随机设置新密码:"
@@ -271,11 +283,15 @@ UPDATE() {
     systemctl stop alist
     # 备份 alist 二进制文件，供下载更新失败回退
     cp $INSTALL_PATH/alist /tmp/alist.bak
-    echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-    curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
-    tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
-    if [ -f $INSTALL_PATH/alist ]; then
-      echo -e "${GREEN_COLOR} 新版本 Alist 下载成功 ${RES}"
+    echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
+    #新增支持自定义版本
+    if [ "$download_VERSION" == "latest" ]; then
+        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    else
+        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    fi
+    if [ -f /tmp/alist.tar.gz ]; then
+      echo -e "${GREEN_COLOR} Alist ${download_VERSION} 下载成功 ${RES}"
     else
       echo -e "${RED_COLOR}下载 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
       echo "正在回退更改"
@@ -285,15 +301,7 @@ UPDATE() {
       echo "更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
       exit 1
     fi
-  echo -e "---------如何获取密码？--------"
-  echo -e "先cd到alist所在目录:"
-  echo -e "${GREEN_COLOR}cd $INSTALL_PATH${RES}"
-  echo -e "随机设置新密码:"
-  echo -e "${GREEN_COLOR}./alist admin random${RES}"
-  echo -e "或者手动设置新密码:"
-  echo -e "${GREEN_COLOR}./alist admin set ${RES}${RED_COLOR}NEW_PASSWORD${RES}"
-  echo -e "----------------------------"
-    echo -e "\r\n${GREEN_COLOR}启动 Alist 进程${RES}"
+    echo -e "\r\n${GREEN_COLOR}正在启动 Alist 进程${RES}"
     systemctl start alist
     echo -e "\r\n${GREEN_COLOR}Alist 已更新到最新稳定版！${RES}\r\n"
     # 删除临时文件
