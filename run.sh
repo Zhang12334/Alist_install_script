@@ -3,16 +3,26 @@ version=$(echo "$response" | grep 'tag_name' | cut -d'"' -f4 | awk '{print subst
 download_url=https://github.com/Zhang12334/Alist_install_bash/releases/download/v$version/install.sh
 clear
 echo "请选择是否使用Github加速地址"
-echo "1. 使用 https://github.moeyy.xyz/"
-echo "2. 使用 https://mirror.ghproxy.com/"
-echo "3. 不使用加速地址"
+echo "1. 使用 https://ghp.ci/"
+echo "2. 使用 https://ghproxy.net/"
+echo "3. 使用 https://ghproxy.cn/"
+echo "4. 使用 https://github.moeyy.xyz/"
+echo "5. 使用 https://gh.llkk.cc/"
+echo "6. 不使用加速地址"
+echo
 echo -n "请输入你的选择: "
 read choice1
 if [ "$choice1" -eq 1 ]; then
     useproxy="https://ghp.ci/"
 elif [ "$choice1" -eq 2 ]; then
-    useproxy="https://mirror.ghproxy.com/"
+    useproxy="https://ghproxy.net/"
 elif [ "$choice1" -eq 3 ]; then
+    useproxy="https://ghproxy.cn/"    
+elif [ "$choice1" -eq 4 ]; then
+    useproxy="https://github.moeyy.xyz/"
+elif [ "$choice1" -eq 5 ]; then
+    useproxy="https://gh.llkk.cc/"    
+elif [ "$choice1" -eq 6 ]; then
     useproxy=""
 fi
 clear
