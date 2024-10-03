@@ -35,6 +35,8 @@ case "$choice1" in
         ;;
 esac
 
+useproxy='https://mirror.ghproxy.com/'
+
 # 清屏
 clear
 echo "请选择操作："
