@@ -66,7 +66,7 @@ case "$choice" in
     3) 
         echo "正在升级..."
         version="latest"
-        curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy $version
+        curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy
         ;;
     *) 
         echo "无效的选择，请输入1-3的数字"
