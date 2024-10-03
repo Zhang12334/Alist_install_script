@@ -41,7 +41,6 @@ read choice
 case "$choice" in
     1) 
         echo "正在安装..."
-        echo "${useproxy}${download_url}"
         curl -fsSL -L "${useproxy}${download_url}" | bash -s install $useproxy
         ;;
     2) 
