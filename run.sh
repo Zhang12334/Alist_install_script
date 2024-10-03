@@ -1,6 +1,7 @@
 response=$(curl -s https://api.github.com/repos/Zhang12334/Alist_install_bash/releases/latest)
 version=$(echo "$response" | grep 'tag_name' | cut -d'"' -f4 | awk '{print substr($0, 2, length($0) - 1)'})
 download_url=https://github.com/Zhang12334/Alist_install_bash/releases/download/v$version/install.sh
+
 clear
 echo "请选择操作："
 echo "1. 安装"
