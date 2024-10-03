@@ -150,7 +150,7 @@ CHECK() {
 INSTALL() {
   # 下载 Alist 程序
   echo -e "\r\n${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-  curl -L -H 'Cache-Control: no-cache' -fsSL ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+  curl -L -H 'Cache-Control: no-cache' -fsSL ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
   tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
 
 
@@ -275,7 +275,7 @@ UPDATE() {
     # 备份 alist 二进制文件，供下载更新失败回退
     cp $INSTALL_PATH/alist /tmp/alist.bak
     echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-    curl -L -H 'Cache-Control: no-cache' -fsSL ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    curl -L -H 'Cache-Control: no-cache' -fsSL ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
     tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
     if [ -f $INSTALL_PATH/alist ]; then
       echo -e "${GREEN_COLOR} 新版本 Alist 下载成功 ${RES}"
