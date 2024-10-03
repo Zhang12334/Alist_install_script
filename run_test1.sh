@@ -8,7 +8,7 @@ test_file_url="https://github.com/Zhang12334/test_ghmirror/releases/latest/downl
 
 # 清屏
 clear
-echo "请选择是否使用Github加速地址"
+echo "请选择要使用的Github加速地址"
 echo "1. 使用 https://ghp.ci/"
 echo "2. 使用 https://ghproxy.net/"
 echo "3. 使用 https://ghproxy.cn/"
