@@ -7,7 +7,7 @@ version=$(echo "$response" | grep 'tag_name' | cut -d'"' -f4 | awk '{print subst
 # 下载地址
 #download_url="https://github.com/Zhang12334/Alist_install_bash/releases/download/v$version/install.sh"
 
-download_url="https://raw.gitmirror.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
+download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install.sh"
 
 # 清屏
 clear
@@ -34,8 +34,6 @@ case "$choice1" in
         useproxy="" 
         ;;
 esac
-
-useproxy='https://mirror.ghproxy.com/'
 
 # 清屏
 clear
