@@ -52,7 +52,8 @@ echo -n "请输入你的选择: "
 read choice
 case "$choice" in
     1) 
-        read -p "请输入版本（例:3.2.0）：" version
+        read -p "请输入要安装的版本，默认安装最新版（例: 3.2.0）：" version
+        version=${version:-latest}
         echo "正在安装..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s install $useproxy $version
         ;;
@@ -62,7 +63,8 @@ case "$choice" in
         ;;
     3) 
         echo "正在升级..."
-        curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy
+        version="latest"
+        curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy $version
         ;;
     *) 
         echo "无效的选择，请输入1-3的数字"
