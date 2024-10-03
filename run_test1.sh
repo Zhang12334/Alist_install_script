@@ -54,7 +54,7 @@ echo -n "请输入你的选择: "
 read choice
 case "$choice" in
     1) 
-        read -p "请输入要安装的版本，默认安装最新版（例: 3.2.0）：" version
+        read -p "请输入要安装的版本，留空默认安装最新版（例: 3.2.0）：" version
         version=${version:-latest}
         echo "正在安装..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s install $useproxy $version
@@ -64,7 +64,7 @@ case "$choice" in
         curl -fsSL -L "${useproxy}${download_url}" | bash -s uninstall
         ;;
     3) 
-        echo "请输入要安装的版本，默认安装最新版"
+        echo "请输入要安装的版本，留空默认安装最新版"
         echo "理论可通过本选项进行降级，降级操作前请先备份数据！"
         read -p "请输入（例: 3.2.0）：" version
         version=${version:-latest}
