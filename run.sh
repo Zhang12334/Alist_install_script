@@ -17,18 +17,20 @@ echo "2. 使用 https://ghproxy.net/"
 echo "3. 使用 https://ghproxy.cn/"
 echo "4. 使用 https://github.moeyy.xyz/"
 echo "5. 使用 https://gh.llkk.cc/"
-echo "6. 不使用加速地址"
+echo "6. 使用 国内自建源"
+echo "7. 不使用加速地址"
 echo
 read -p "请输入你的选择: " choice1
 
 # 根据用户选择设置代理
 case $choice1 in
-    1) useproxy="https://ghp.ci/" ;;
-    2) useproxy="https://ghproxy.net/" ;;
-    3) useproxy="https://ghproxy.cn/" ;;
-    4) useproxy="https://github.moeyy.xyz/" ;;
-    5) useproxy="https://gh.llkk.cc/" ;;
-    6) useproxy="" ;;
+    1) useproxy="https://ghp.ci/https://github.com/" ;;
+    2) useproxy="https://ghproxy.net/https://github.com/" ;;
+    3) useproxy="https://ghproxy.cn/https://github.com/" ;;
+    4) useproxy="https://github.moeyy.xyz/https://github.com/" ;;
+    5) useproxy="https://gh.llkk.cc/https://github.com/" ;;
+    6) useproxy="https://gh.star-cloud.eu.org:54465/" ;;
+    7) useproxy="https://github.com/" ;;
     *) 
         echo "无效的选择，默认使用不加速地址"
         useproxy="" 
