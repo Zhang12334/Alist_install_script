@@ -142,9 +142,10 @@ CHECK() {
 #安装部分
 
 INSTALL() {
+  clear
   # 下载 Alist 程序
-  echo -e "\r\n${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-  curl -L -H 'Cache-Control: no-cache' -fsSL ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+  echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
+  curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
   tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
 
 
@@ -193,25 +194,25 @@ EOF
 }
 
 SUCCESS() {
-  ipv6_address=$(ip -6 addr show scope global | grep inet6 | awk '{print $2}' | cut -d'/' -f1)
+  ipv6_address=$(ip -6 addr show | grep 'inet6' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^::1$' | sort | head -n 1)
   ipv6_address_out=$(curl -6 -s 6.ipw.cn)
-  ipv4_address=$(ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d'/' -f1)
+  ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
   clear
   echo "Alist 安装成功！"
   echo
-  echo -e "\r\nIPV6访问地址（本机获取）：${GREEN_COLOR}http://[$ipv6_address]:5244/${RES}\r\n"
-  echo -e "\r\nIPV4访问地址（本机获取）：${GREEN_COLOR}http://$ipv4_address:5244/${RES}\r\n"
+  echo -e "${GREEN_COLOR}IPV6访问地址（本机获取）：${GREEN_COLOR}http://[$ipv6_address]:5244/"
+  echo -e "IPV4访问地址（本机获取）：${GREEN_COLOR}http://$ipv4_address:5244/"
   
   if [ -z "$ipv6_address_out" ]; then
-    echo -e "\r\nIPV6访问地址（出口IP）：${GREEN_COLOR}本机不支持IPV6网络${RES}\r\n"
+    echo -e "IPV6访问地址（出口IP）：${GREEN_COLOR}本机不支持IPV6网络"
   else
-    echo -e "\r\nIPV6访问地址（出口IP）：${GREEN_COLOR}http://[$ipv6_address_out]:5244/${RES}\r\n"
+    echo -e "IPV6访问地址（出口IP）：${GREEN_COLOR}http://[$ipv6_address_out]:5244/"
   fi
   if [ -z "$ipv4_address_out" ]; then
-    echo -e "\r\nIPV4访问地址（出口IP）：${GREEN_COLOR}本机不支持IPV4网络${RES}\r\n"
+    echo -e "IPV4访问地址（出口IP）：${GREEN_COLOR}本机不支持IPV4网络"
   else
-    echo -e "\r\nIPV4访问地址（出口IP）：${GREEN_COLOR}http://$ipv4_address_out:5244/${RES}\r\n"
+    echo -e "IPV4访问地址（出口IP）：${GREEN_COLOR}http://$ipv4_address_out:5244/"
   fi
   
   echo
@@ -241,7 +242,8 @@ SUCCESS() {
 
 #卸载
 UNINSTALL() {
-  echo -e "\r\n${GREEN_COLOR}正在卸载 Alist ...${RES}\r\n"
+  clear
+  echo -e "${GREEN_COLOR}正在卸载 Alist ...${RES}\r\n"
   echo -e "${GREEN_COLOR}正在关闭开机自启${RES}"
   systemctl disable alist >/dev/null 2>&1
   echo -e "${GREEN_COLOR}正在停止进程${RES}"
@@ -254,6 +256,7 @@ UNINSTALL() {
 }
 
 UPDATE() {
+  clear
   if [ ! -f "$INSTALL_PATH/alist" ]; then
     echo -e "\r\n${RED_COLOR}出错了${RES}，当前系统未安装 Alist，请先安装再升级！\r\n"
     exit 1
@@ -269,7 +272,7 @@ UPDATE() {
     # 备份 alist 二进制文件，供下载更新失败回退
     cp $INSTALL_PATH/alist /tmp/alist.bak
     echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-    curl -L -H 'Cache-Control: no-cache' -fsSL ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
     tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
     if [ -f $INSTALL_PATH/alist ]; then
       echo -e "${GREEN_COLOR} 新版本 Alist 下载成功 ${RES}"
