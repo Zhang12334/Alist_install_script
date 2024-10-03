@@ -285,7 +285,7 @@ UPDATE() {
     # 备份 alist 二进制文件，供下载更新失败回退
     cp $INSTALL_PATH/alist /tmp/alist.bak
     echo -e "${GREEN_COLOR}下载 Alist $VERSION ...${RES}"
-    curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+    curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-$ARCH.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
     tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
     if [ -f $INSTALL_PATH/alist ]; then
       echo -e "${GREEN_COLOR} 新版本 Alist 下载成功 ${RES}"
@@ -298,15 +298,7 @@ UPDATE() {
       echo "更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
       exit 1
     fi
-  echo -e "---------如何获取密码？--------"
-  echo -e "先cd到alist所在目录:"
-  echo -e "${GREEN_COLOR}cd $INSTALL_PATH${RES}"
-  echo -e "随机设置新密码:"
-  echo -e "${GREEN_COLOR}./alist admin random${RES}"
-  echo -e "或者手动设置新密码:"
-  echo -e "${GREEN_COLOR}./alist admin set ${RES}${RED_COLOR}NEW_PASSWORD${RES}"
-  echo -e "----------------------------"
-    echo -e "\r\n${GREEN_COLOR}启动 Alist 进程${RES}"
+    echo -e "\r\n${GREEN_COLOR}正在启动 Alist 进程${RES}"
     systemctl start alist
     echo -e "\r\n${GREEN_COLOR}Alist 已更新到最新稳定版！${RES}\r\n"
     # 删除临时文件
