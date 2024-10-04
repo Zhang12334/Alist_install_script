@@ -226,7 +226,7 @@ nohup $INSTALL_PATH/alist server &
 EOF
   # 创建停止脚本
   cat >/data/data/com.termux/files/home/stop_alist.sh <<EOF
-alist_pid=$(pgrep -f "alist")\n\nkill -9 $alist_pid\n\necho "Alist 已停止！"
+alist_pid=$(pgrep -f "alist")\n\nkill $alist_pid\n\necho "Alist 已停止！"
 EOF
   chmod +x /data/data/com.termux/files/home/start_alist.sh
   chmod +x /data/data/com.termux/files/home/stop_alist.sh
