@@ -242,6 +242,13 @@ SUCCESS() {
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
   cd $INSTALL_PATH
   adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
+  if [ "$is_termux" -eq 1 ]; then
+    bash /data/data/com.termux/files/home/start_alist.sh > /dev/null 2>&1 &
+    bash /data/data/com.termux/files/home/stop_alist.sh > /dev/null 2>&1 &
+  else
+    systemctl start alist > /dev/null 2>&1 &
+    systemctl stop alist > /dev/null 2>&1 &
+  fi
   ./alist admin set $adminpwd > /dev/null 2>&1 &
   clear
   echo "Alist 安装成功！"
