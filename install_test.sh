@@ -366,10 +366,11 @@ UPDATE() {
       mv $INSTALL_PATH/downloadtmp/alist.bak $INSTALL_PATH/alist
       if [ "$is_termux" -eq 0 ]; then
           #普通Linux机器
-          echo "${GREEN_COLOR}Alist 正在启动中 ..."
+          echo "${GREEN_COLOR}正在启动Alist"
           systemctl start alist
           echo -e "${GREEN_COLOR}Alist 启动完成！"
       else
+          #Termux内
           echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
           bash /data/data/com.termux/files/home/start_alist.sh
           echo -e "${GREEN_COLOR}Alist 启动完成！"
@@ -399,23 +400,6 @@ UPDATE() {
         systemctl start alist
         echo -e "${GREEN_COLOR}Alist 启动完成！"
     else
-	  rm -rf /data/data/com.termux/files/home/start_alist.sh
-          rm -rf /data/data/com.termux/files/home/stop_alist.sh
-	  
-	  # 创建启动脚本
-	    cat >/data/data/com.termux/files/home/start_alist.sh <<EOF
-	  nohup $INSTALL_PATH/alist server &
-	  EOF
-   
-	  # 创建停止脚本
-	    cat >/data/data/com.termux/files/home/stop_alist.sh <<EOF
-	  alist_pid=$(pgrep -f "alist")
-	  kill $alist_pid
-	  echo "Alist 已停止！"
-	  EOF
-   
-	  chmod +x /data/data/com.termux/files/home/start_alist.sh
-	  chmod +x /data/data/com.termux/files/home/stop_alist.sh
         #Termux内
         echo -e "${GREEN_COLOR}正在启动 Alist"
         bash /data/data/com.termux/files/home/start_alist.sh
