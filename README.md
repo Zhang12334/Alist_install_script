@@ -23,12 +23,12 @@ bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist
 感谢所有参与测试、提供不同架构系统Linux机器的朋友！
 | 架构      | 系统           | 测试设备    | 国家/地区     |安装功能|卸载功能|升级功能|测试状态|机器提供者|
 |-----------|----------------|--------------|---------------|-------|-------|--------|-------|----------|
-| ArmV7L    | Armbian-23.02  | 玩客云       | 中国大陆      | ✅    | ✅    | ✅    | ✅    | Zhang   |
+| ArmV7L    | Armbian-23.02  | 玩客云       | 中国大陆       | ✅    | ✅    | ✅    | ✅    | Zhang   |
 | Aarch64   | Ubuntu-20.04   | Oracle ARM64 | 加拿大        | ✅    | ✅    | ✅    | ✅    | Zhang   |
-| Aarch64   |Termux-MIUI10<br>(Android6.0)| VIVO Y67    | 中国大陆      | ✅    | ✅    | ✅    | ✅    | Zhang   |
+| Aarch64   |Termux-MIUI10<br>(Android6.0)|VIVO Y67| 中国大陆| ✅   | ✅    | ✅    | ✅    | Zhang   |
 | X86_64    | Debian-12.6    | E5-2680V4    | 中国大陆      | ✅    | ✅    | ✅    | ✅    | Zhang   |
 | X86_64    | Debian-10.13   | i7-8700      | 卢森堡        | ✅    | ✅    | ✅    | ✅    | Zhang   |
 | X86_64    | Debian-10      | E3-1245V2    | 法国          | ✅    | ✅    | ✅    | ✅    | Zhang   |
 | X86_64    | ArchLinux      | G4400        | 中国大陆      | ✅    | ✅    | ✅    | ✅    | 听风    |
-| x86_64    | Debian WSL2    | i5-9400F   |中国大陆(香港VPN)| ✅    | ✅    | ✅    | ✅    | ZeroWolf|
+| x86_64    | Debian WSL2    | i5-9400F     |中国大陆       | ✅    | ✅    | ✅    | ✅    | ZeroWolf|
 | 欢迎补充  |                |              |               |        |       |        |       |         |
