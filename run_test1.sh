@@ -84,11 +84,11 @@ case "$choice" in
           echo "无效版本号，必须大于等于 $MIN_VERSION"
           exit 1
         fi
-        echo "正在安装..."
+        echo "正在下载安装脚本..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s install $useproxy $version
         ;;
     2) 
-        echo "正在卸载..."
+        echo "正在下载卸载脚本..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s uninstall
         ;;
     3) 
@@ -123,7 +123,7 @@ case "$choice" in
           echo "无效版本号，必须大于等于 $MIN_VERSION"
           exit 1
         fi
-        echo "正在升级..."
+        echo "正在下载升级脚本..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy $version
         ;;
     *) 
