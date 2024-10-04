@@ -1,16 +1,24 @@
 # Alist install script
-[English Version](https://github.com/Zhang12334/Alist_install_bash/blob/main/README_en.md)<br>
-本项目是一个适配了多架构、多Linux内核版本的Linux Alist安装脚本<br>
-全部文件均来自Alist官方发布版本（Github Release）<br>
-内置多个Github加速镜像源，支持自定义加速镜像源<br>
-支持使用Android Termux在无root权限的情况下进行安装<br>
-安装后自动使用urandom生成20位强密码并设置为Alist admin密码<br>
-支持多架构、多Linux内核版本、多系统运行（甚至Android也能跑!）<br>
+[English Version](https://github.com/Zhang12334/Alist_install_bash/blob/main/README_en.md)
+
+本项目是一个适配了多架构、多Linux内核版本的Linux Alist安装脚本
+
+全部文件均来自Alist官方发布版本（Github Release）
+
+内置多个Github加速镜像源，支持自定义加速镜像源
+
+支持使用Android Termux在无root权限的情况下进行安装
+
+安装后自动使用urandom生成20位强密码并设置为Alist admin密码
+
+支持多架构、多Linux内核版本、多系统运行（甚至Android也能跑!）
+
 # 使用方式
 SSH连接服务器后执行下方命令<br>
 ```bash
 bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh)
 ```
+
 # 可用性测试
 感谢所有参与测试、提供不同架构系统Linux机器的朋友！
 | 架构      | 系统           | 测试设备    | 国家/地区     |安装功能|卸载功能|升级功能|测试状态|机器提供者|
