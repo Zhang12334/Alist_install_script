@@ -309,7 +309,7 @@ UNINSTALL() {
     #kill进程
     echo -e "${GREEN_COLOR}正在停止进程${RES}"
     alist_pid=$(pgrep -f "alist")
-    kill -9 $alist_pid
+    kill $alist_pid
     #删除目录
     echo -e "${GREEN_COLOR}正在清除文件${RES}"
     rm -rf $INSTALL_PATH
@@ -343,7 +343,12 @@ UPDATE() {
     fi
     echo
     echo -e "${GREEN_COLOR}停止 Alist 进程${RES}\r\n"
-    systemctl stop alist
+    if [ "$is_termux" -eq 0 ]; then
+      systemctl stop alist
+    else
+      alist_pid=$(pgrep -f "alist")
+      kill $alist_pid
+    fi
     # 备份 alist 二进制文件，供下载更新失败回退
     cp $INSTALL_PATH/alist $INSTALL_PATH/downloadtmp/alist.bak
     echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
