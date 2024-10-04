@@ -20,7 +20,7 @@ SSH connect to your server or Termux openssh device, then run this command (curr
 bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh)
 ```
 
-# CPU Architecture Usability Testing
+# System & Architecture Usability Testing
 Thank you to all the friends who participated in the testing and provided Linux machines with different architectures!
 | Architecture | System           | Test Device  | Country/Region       | Install | Uninstall | Upgrade | Test Status | Provided by |
 |--------------|------------------|--------------|----------------------|---------|-----------|---------|-------------|-------------|
