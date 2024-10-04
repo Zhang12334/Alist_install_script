@@ -1,4 +1,4 @@
-# Alist install script
+# Alist Install Script
 [English Version](https://github.com/Zhang12334/Alist_install_bash/blob/main/README_en.md)
 
 本项目是一个适配了多架构、多Linux内核版本的Linux Alist安装脚本
