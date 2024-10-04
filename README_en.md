@@ -16,7 +16,7 @@ Thank you to all the friends who participated in the testing and provided Linux 
 |--------------|------------------|--------------|-----------------------|---------|-----------|---------|-------------|-------------|
 | ArmV7L       | Armbian-23.02     | Wankeyun     | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
 | Aarch64      | Ubuntu-20.04      | Oracle ARM64 | Canada                | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| Aarch64      | Termux-Android6.0 | VIVO Y67     | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
+| Aarch64      | Termux-MIUI10<br>(Android6.0) | VIVO Y67     | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
 | X86_64       | Debian-12.6       | E5-2680V4    | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
 | X86_64       | Debian-10.13      | i7-8700      | Luxembourg            | ✅      | ✅        | ✅      | ✅          | Zhang       |
 | X86_64       | Debian-10         | E3-1245V2    | France                | ✅      | ✅        | ✅      | ✅          | Zhang       |
