@@ -244,7 +244,7 @@ SUCCESS() {
   if [ "$is_termux" -eq 1 ]; then
     adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 8)
   else
-    adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
+    adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
   fi
   ./alist admin set $adminpwd > /dev/null 2>&1 &
   clear
