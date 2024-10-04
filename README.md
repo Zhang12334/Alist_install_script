@@ -4,8 +4,13 @@
 内置多个Github加速镜像源，支持自定义加速镜像源<br>
 安装后自动使用urandom生成20位强密码并设置为Alist admin密码<br>
 支持多架构、多Linux版本<br>
-使用方式：SSH连接服务器后执行下方命令<br>
-bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh) <br>
+# 使用方式
+SSH连接服务器后执行下方命令<br>
+```bash
+bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh)
+```
+# 可用性测试
+感谢所有参与测试、提供不同架构系统Linux机器的朋友！
 | 架构      | 系统           | 测试设备    | 国家/地区     |安装功能|卸载功能|升级功能|测试状态|机器提供者|
 |-----------|----------------|--------------|---------------|-------|-------|--------|-------|----------|
 | ArmV7L    | Armbian-23.02  | 玩客云       | 中国大陆      | ✅    | ✅    | ✅    | ✅    | Zhang   |
@@ -14,5 +19,5 @@ bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist
 | X86_64    | Debian-10.13   | i7-8700      | 卢森堡        | ✅    | ✅    | ✅    | ✅    | Zhang   |
 | X86_64    | Debian-10      | E3-1245V2    | 法国          | ✅    | ✅    | ✅    | ✅    | Zhang   |
 | X86_64    | ArchLinux      | G4400        | 中国大陆      | ✅    | ✅    | ✅    | ✅    | 听风    |
-| 欢迎补充  |                |              |               |        |       |        |       |         |
+| x86_64    | Debian WSL2    | i5-9400F   |中国大陆(香港VPN)|        |       |        |       | ZeroWolf|
 | 欢迎补充  |                |              |               |        |       |        |       |         |
