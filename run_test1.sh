@@ -4,6 +4,7 @@
 # 下载地址
 # download_url="Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
 download_url="https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/install_test.sh"
+#测试文件地址
 test_file_url="https://github.com/Zhang12334/test_ghmirror/releases/latest/download/test.txt"
 
 # 清屏
