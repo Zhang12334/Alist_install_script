@@ -379,7 +379,7 @@ UPDATE() {
     fi
     #覆盖
     echo "${GREEN_COLOR}正在更新 Alist ..."
-    tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
+    tar zxf $INSTALL_PATH/downloadtmp/alist.tar.gz -C $INSTALL_PATH/
     #判断
     if [ -f $INSTALL_PATH/alist ]; then
     #解压后存在文件即更新成功
@@ -390,7 +390,7 @@ UPDATE() {
       echo "${GREEN_COLOR}正在回退更改 ..."
       mv $INSTALL_PATH/downloadtmp/alist.bak $INSTALL_PATH/alist
       echo "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
-      rm -f /tmp/alist*
+      rm -f $INSTALL_PATH/downloadtmp/alist*
       exit 1
     fi
     if [ "$is_termux" -eq 0 ]; then
@@ -406,7 +406,7 @@ UPDATE() {
     fi
     echo -e "\r\n${GREEN_COLOR}Alist 已更新到最新稳定版！${RES}\r\n"
     # 删除临时文件
-    rm -f /tmp/alist*
+    rm -f $INSTALL_PATH/downloadtmp/alist*
   fi
 }
 
