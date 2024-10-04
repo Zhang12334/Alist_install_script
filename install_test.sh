@@ -241,7 +241,11 @@ SUCCESS() {
   ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
   cd $INSTALL_PATH
-  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 8)
+  if [ "$is_termux" -eq 1 ]; then
+    adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 8)
+  else
+    adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
+  fi
   ./alist admin set $adminpwd
   echo "Alist 安装成功！"
   echo
@@ -264,7 +268,12 @@ SUCCESS() {
   echo -e "-----------使用说明----------"
   echo -e "Alist账号名称：admin"
   echo -e "自动生成强密码：$adminpwd"
-  echo -e "程序使用urandom生成8位强密码"
+  if [ "$is_termux" -eq 1 ]; then
+  #tmd这个termux不支持8位以上的密码，牛魔
+    echo -e "程序使用urandom生成8位强密码"
+  else
+    echo -e "程序使用urandom生成20位强密码"
+  fi  
   echo -e "本密码仅显示一次，请妥善保存！"  
   echo -e "请勿泄漏本界面内容给任何人！！"  
   echo -e "---------密码更改方式--------"  
@@ -278,8 +287,8 @@ SUCCESS() {
   if [ "$is_termux" -eq 0 ]; then
   #普通Linux机器
     #重启Alist
-    systemctl restart alist
-
+    systemctl stop alist
+    systemctl start alist
     echo
     echo -e "查看状态：${GREEN_COLOR}systemctl status alist${RES}"
     echo -e "启动服务：${GREEN_COLOR}systemctl start alist${RES}"
@@ -292,6 +301,7 @@ SUCCESS() {
     echo -e "由于Termux特殊环境问题，暂不支持自动启动！关闭或重启后需要手动开启服务！"
     echo
     echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
+    bash /data/data/com.termux/files/home/stop_alist.sh
     bash /data/data/com.termux/files/home/start_alist.sh
     echo -e "${GREEN_COLOR}Alist 启动完成！"
   fi
