@@ -241,9 +241,8 @@ SUCCESS() {
   ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
   cd $INSTALL_PATH
-  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
-  ./alist admin set $adminpwd > /dev/null 2>&1 &
-  clear
+  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 8)
+  ./alist admin set $adminpwd
   echo "Alist 安装成功！"
   echo
   echo -e "${GREEN_COLOR}IPV6访问地址（本机获取）：${GREEN_COLOR}http://[$ipv6_address]:5244/"
@@ -265,7 +264,7 @@ SUCCESS() {
   echo -e "-----------使用说明----------"
   echo -e "Alist账号名称：admin"
   echo -e "自动生成强密码：$adminpwd"
-  echo -e "程序使用urandom生成20位强密码"
+  echo -e "程序使用urandom生成8位强密码"
   echo -e "本密码仅显示一次，请妥善保存！"  
   echo -e "请勿泄漏本界面内容给任何人！！"  
   echo -e "---------密码更改方式--------"  
