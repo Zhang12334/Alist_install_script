@@ -241,7 +241,7 @@ SUCCESS() {
   ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
   cd $INSTALL_PATH
-  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
+  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
   ./alist admin set $adminpwd > /dev/null 2>&1 &
   clear
   echo "Alist 安装成功！"
