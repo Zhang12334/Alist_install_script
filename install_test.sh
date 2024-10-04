@@ -429,9 +429,9 @@ if curl --help | grep progress-bar >/dev/null 2>&1; then # $CURL_BAR
   CURL_BAR="--progress-bar"
 fi
 
-# The temp directory must exist
-if [ ! -d "/tmp" ]; then
-  mkdir -p /tmp
+# The temp directory must exist!!
+if [ ! -d "$INSTALL_PATH/downloadtmp" ]; then
+  mkdir -p $INSTALL_PATH/downloadtmp
 fi
 
 # Fuck bt.cn (BT will use chattr to lock the php isolation config)
