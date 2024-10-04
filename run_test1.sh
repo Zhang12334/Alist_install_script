@@ -57,6 +57,26 @@ case "$choice" in
     1) 
         read -p "请输入要安装的版本，留空默认安装最新版（例: 3.2.0）：" version
         version=${version:-latest}
+        MIN_VERSION="3.0.0"
+        CURRENT_VERSION=$version
+        # 比较版本号
+        version_ge() {
+          # 将版本号的每个部分用 '.' 分割并逐个比较
+          [[ "$1" == "$2" ]] && return 0
+          local IFS=.
+          local i ver1=($1) ver2=($2)
+          for ((i=0; i<${#ver1[@]}; i++)); do
+            [[ ${ver1[i]} -gt ${ver2[i]} ]] && return 0
+            [[ ${ver1[i]} -lt ${ver2[i]} ]] && return 1
+          done
+          return 0
+        }
+        if [[ "$CURRENT_VERSION" == "latest" ]]; then
+          echo "将安装为 $CURRENT_VERSION 版本"
+        elif ! version_ge "$CURRENT_VERSION" "$MIN_VERSION"; then
+          echo "无效的版本号，必须大于等于 $MIN_VERSION"
+          exit 1
+        fi
         echo "正在安装..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s install $useproxy $version
         ;;
@@ -65,10 +85,30 @@ case "$choice" in
         curl -fsSL -L "${useproxy}${download_url}" | bash -s uninstall
         ;;
     3) 
-        echo "请输入要安装的版本，留空默认安装最新版"
+        echo "请输入要升级到的版本，留空默认升级最新版"
         echo "理论可通过本选项进行降级，降级操作前请先备份数据！"
         read -p "请输入（例: 3.2.0）：" version
         version=${version:-latest}
+        MIN_VERSION="3.0.0"
+        CURRENT_VERSION=$version
+        # 比较版本号
+        version_ge() {
+          # 将版本号的每个部分用 '.' 分割并逐个比较
+          [[ "$1" == "$2" ]] && return 0
+          local IFS=.
+          local i ver1=($1) ver2=($2)
+          for ((i=0; i<${#ver1[@]}; i++)); do
+            [[ ${ver1[i]} -gt ${ver2[i]} ]] && return 0
+            [[ ${ver1[i]} -lt ${ver2[i]} ]] && return 1
+          done
+          return 0
+        }
+        if [[ "$CURRENT_VERSION" == "latest" ]]; then
+          echo "将升级为 $CURRENT_VERSION 版本"
+        elif ! version_ge "$CURRENT_VERSION" "$MIN_VERSION"; then
+          echo "无效的版本号，必须大于等于 $MIN_VERSION"
+          exit 1
+        fi
         echo "正在升级..."
         curl -fsSL -L "${useproxy}${download_url}" | bash -s update $useproxy $version
         ;;
