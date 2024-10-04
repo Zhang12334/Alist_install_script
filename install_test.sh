@@ -246,7 +246,7 @@ SUCCESS() {
   else
     adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
   fi
-  ./alist admin set $adminpwd
+  ./alist admin set $adminpwd > /dev/null 2>&1 &
   echo "Alist 安装成功！"
   echo
   echo -e "${GREEN_COLOR}IPV6访问地址（本机获取）：${GREEN_COLOR}http://[$ipv6_address]:5244/"
@@ -371,7 +371,7 @@ UPDATE() {
       echo -e "${GREEN_COLOR} Alist ${download_VERSION} 下载成功 ${RES}"
     else
       echo -e "${RED_COLOR}下载 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
-      echo "${GREEN_COLOR}正在回退更改 ..."
+      echo -e "${GREEN_COLOR}正在回退更改 ..."
       mv $INSTALL_PATH/downloadtmp/alist.bak $INSTALL_PATH/alist
       if [ "$is_termux" -eq 0 ]; then
           #普通Linux机器
@@ -384,11 +384,11 @@ UPDATE() {
           bash /data/data/com.termux/files/home/start_alist.sh
           echo -e "${GREEN_COLOR}Alist 启动完成！"
       fi
-      echo "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
+      echo -e "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
       exit 1
     fi
     #覆盖
-    echo "${GREEN_COLOR}正在更新 Alist ..."
+    echo -e "${GREEN_COLOR}正在更新 Alist ..."
     tar zxf $INSTALL_PATH/downloadtmp/alist.tar.gz -C $INSTALL_PATH/
     #判断
     if [ -f $INSTALL_PATH/alist ]; then
@@ -397,15 +397,15 @@ UPDATE() {
     else
     #不存在即为解压失败（原因可能为下载的压缩包出错、不完整等）
       echo -e "${RED_COLOR}解压 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
-      echo "${GREEN_COLOR}正在回退更改 ..."
+      echo -e "${GREEN_COLOR}正在回退更改 ..."
       mv $INSTALL_PATH/downloadtmp/alist.bak $INSTALL_PATH/alist
-      echo "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
+      echo -e "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
       rm -f $INSTALL_PATH/downloadtmp/alist*
       exit 1
     fi
     if [ "$is_termux" -eq 0 ]; then
         #普通Linux机器
-        echo "${GREEN_COLOR}正在启动 Alist"
+        echo -e "${GREEN_COLOR}正在启动 Alist"
         systemctl start alist
         echo -e "${GREEN_COLOR}Alist 启动完成！"
     else
