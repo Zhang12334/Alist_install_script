@@ -59,6 +59,10 @@ case "$choice" in
         version=${version:-latest}
         MIN_VERSION="3.0.0"
         CURRENT_VERSION=$version
+        # 检查是否为 *.*.* 格式
+        is_valid_version_format() {
+          [[ "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] && return 0 || return 1
+        }        
         # 比较版本号
         version_ge() {
           # 将版本号的每个部分用 '.' 分割并逐个比较
@@ -73,8 +77,11 @@ case "$choice" in
         }
         if [[ "$CURRENT_VERSION" == "latest" ]]; then
           echo "未输入内容，将安装最新版"
+        elif ! is_valid_version_format "$CURRENT_VERSION"; then
+          echo "无效版本号格式，必须为 *.*.* 形式（例如 3.2.0）"
+          exit 1
         elif ! version_ge "$CURRENT_VERSION" "$MIN_VERSION"; then
-          echo "无效的版本号，必须大于等于 $MIN_VERSION"
+          echo "无效版本号，必须大于等于 $MIN_VERSION"
           exit 1
         fi
         echo "正在安装..."
@@ -91,6 +98,10 @@ case "$choice" in
         version=${version:-latest}
         MIN_VERSION="3.0.0"
         CURRENT_VERSION=$version
+        # 检查是否为 *.*.* 格式
+        is_valid_version_format() {
+          [[ "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] && return 0 || return 1
+        }
         # 比较版本号
         version_ge() {
           # 将版本号的每个部分用 '.' 分割并逐个比较
@@ -105,8 +116,11 @@ case "$choice" in
         }
         if [[ "$CURRENT_VERSION" == "latest" ]]; then
           echo "未输入内容，将升级为最新版"
+        elif ! is_valid_version_format "$CURRENT_VERSION"; then
+          echo "无效版本号格式，必须为 *.*.* 形式（例如 3.2.0）"
+          exit 1
         elif ! version_ge "$CURRENT_VERSION" "$MIN_VERSION"; then
-          echo "无效的版本号，必须大于等于 $MIN_VERSION"
+          echo "无效版本号，必须大于等于 $MIN_VERSION"
           exit 1
         fi
         echo "正在升级..."
