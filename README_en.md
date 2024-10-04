@@ -1,4 +1,4 @@
-# Alist install script
+# Alist Install Script
 [中文版](https://github.com/Zhang12334/Alist_install_bash/blob/main/README.md)
 
 This project is an Alist installation script adapted for multiple architectures and various Linux kernel versions.
