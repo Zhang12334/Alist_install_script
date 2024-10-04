@@ -3,6 +3,9 @@
 #安装版本设置为传参
 download_VERSION=$3
 
+#新增termux检测
+is_termux=
+
 
 #固定安装路径
 
