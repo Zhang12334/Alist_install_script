@@ -312,6 +312,7 @@ UNINSTALL() {
     echo -e "${GREEN_COLOR}正在清除文件${RES}"
     rm -rf $INSTALL_PATH
     rm -rf /data/data/com.termux/files/home/start_alist.sh
+    rm -rf /data/data/com.termux/files/home/stop_alist.sh
   else
     #普通linux执行指令
     echo -e "${GREEN_COLOR}正在关闭开机自启${RES}"
