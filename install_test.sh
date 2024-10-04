@@ -293,7 +293,6 @@ SUCCESS() {
     echo -e "由于Termux特殊环境问题，暂不支持自动启动！关闭或重启后需要手动开启服务！"
     echo
     echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
-    bash /data/data/com.termux/files/home/stop_alist.sh
     bash /data/data/com.termux/files/home/start_alist.sh
     echo -e "${GREEN_COLOR}Alist 启动完成！"
   fi
