@@ -222,7 +222,7 @@ else
   #termux方法
   # 创建启动脚本
   cat >/data/data/com.termux/files/home/start_alist.sh <<EOF
-$INSTALL_PATH/alist server &
+nohup $INSTALL_PATH/alist server &
 EOF
 
 fi
@@ -284,7 +284,7 @@ SUCCESS() {
     echo -e "${GREEN_COLOR}随后 Alist 将在后台运行！"
     echo
     echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
-    $INSTALL_PATH/alist server
+    bash /data/data/com.termux/files/home/start_alist.sh
     echo -e "${GREEN_COLOR}Alist 启动完成！"
   fi
   echo -e "\r\n温馨提示：如果端口无法正常访问，请检查 \033[36m服务器安全组、本机防火墙、Alist状态\033[0m"
