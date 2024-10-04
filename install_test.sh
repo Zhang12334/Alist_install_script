@@ -247,6 +247,7 @@ SUCCESS() {
     adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
   fi
   ./alist admin set $adminpwd > /dev/null 2>&1 &
+  clear
   echo "Alist 安装成功！"
   echo
   echo -e "${GREEN_COLOR}IPV6访问地址（本机获取）：${GREEN_COLOR}http://[$ipv6_address]:5244/"
