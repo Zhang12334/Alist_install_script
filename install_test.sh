@@ -161,6 +161,9 @@ CHECK() {
 INSTALL() {
   clear
   # 下载 Alist 程序
+  if [ "$is_termux" -eq 1 ]; then
+    echo "检测到正在Termux环境中运行，正在使用无需 root 权限的方式安装..."
+  fi
   echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
   #新增支持自定义版本
   if [ "$download_VERSION" == "latest" ]; then
@@ -280,6 +283,10 @@ SUCCESS() {
   else
     echo -e "启动服务：${GREEN_COLOR}在默认目录下执行 ./start_alist${RES}"
     echo -e "${GREEN_COLOR}随后 Alist 将在后台运行！"
+    echo
+    echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
+    nohup $INSTALL_PATH/alist server
+    echo -e "${GREEN_COLOR}Alist 启动完成！"
   fi
   echo -e "\r\n温馨提示：如果端口无法正常访问，请检查 \033[36m服务器安全组、本机防火墙、Alist状态\033[0m"
   echo
