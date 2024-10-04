@@ -147,6 +147,12 @@ CHECK() {
   else
     rm -rf $INSTALL_PATH && mkdir -p $INSTALL_PATH
   fi
+  
+  if [ ! -d "$INSTALL_PATH/downloadtmp" ]; then
+    mkdir -p $INSTALL_PATH/downloadtmp
+  else
+    rm -rf $INSTALL_PATH/downloadtmp && mkdir -p $INSTALL_PATH/downloadtmp
+  fi
 }
 
 
@@ -158,11 +164,11 @@ INSTALL() {
   echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
   #新增支持自定义版本
   if [ "$download_VERSION" == "latest" ]; then
-      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o $INSTALL_PATH/downloadtmp/alist.tar.gz $CURL_BAR
   else
-      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+      curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o $INSTALL_PATH/downloadtmp/alist.tar.gz $CURL_BAR
   fi
-  tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
+  tar zxf $INSTALL_PATH/downloadtmp/alist.tar.gz -C $INSTALL_PATH/
   if [ -f $INSTALL_PATH/alist ]; then
     echo -e "${GREEN_COLOR} alist-linux-$ARCH.tar.gz 下载成功 ${RES}"
   else
@@ -174,7 +180,7 @@ INSTALL() {
     exit 1
   fi
   # 删除下载缓存
-  rm -f /tmp/alist*
+  rm -f $INSTALL_PATH/downloadtmp/alist*
 }
 
 # 安装初始化部分
