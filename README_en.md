@@ -1,5 +1,5 @@
 # Alist_install_bash
-[中文版](https://github.com/Zhang12334/Alist_install_bash/edit/main/README.md)<br>
+[中文版](https://github.com/Zhang12334/Alist_install_bash/blob/main/README.md)<br>
 This project is an Alist installation script adapted for multi-architecture Linux kernel systems<br>
 All files are from the official Alist release version (GitHub Release)<br>
 Built-in with multiple GitHub acceleration mirror sources, supports custom acceleration mirror sources<br>
