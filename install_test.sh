@@ -226,7 +226,9 @@ nohup $INSTALL_PATH/alist server &
 EOF
   # 创建停止脚本
   cat >/data/data/com.termux/files/home/stop_alist.sh <<EOF
-alist_pid=$(pgrep -f "alist")\n\nkill $alist_pid\n\necho "Alist 已停止！"
+alist_pid=$(pgrep -f "alist")
+kill $alist_pid
+echo "Alist 已停止！"
 EOF
   chmod +x /data/data/com.termux/files/home/start_alist.sh
   chmod +x /data/data/com.termux/files/home/stop_alist.sh
@@ -343,27 +345,61 @@ UPDATE() {
     echo -e "${GREEN_COLOR}停止 Alist 进程${RES}\r\n"
     systemctl stop alist
     # 备份 alist 二进制文件，供下载更新失败回退
-    cp $INSTALL_PATH/alist /tmp/alist.bak
+    cp $INSTALL_PATH/alist $INSTALL_PATH/downloadtmp/alist.bak
     echo -e "${GREEN_COLOR}下载 Alist $download_VERSION ...${RES}"
     #新增支持自定义版本
     if [ "$download_VERSION" == "latest" ]; then
-        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/latest/download/alist-linux-${ARCH}.tar.gz -o $INSTALL_PATH/downloadtmp/alist.tar.gz $CURL_BAR
     else
-        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o /tmp/alist.tar.gz $CURL_BAR
+        curl -L -H 'Cache-Control: no-cache' ${GH_PROXY}https://github.com/alist-org/alist/releases/download/v${download_VERSION}/alist-linux-${ARCH}.tar.gz -o $INSTALL_PATH/downloadtmp/alist.tar.gz $CURL_BAR
     fi
-    if [ -f /tmp/alist.tar.gz ]; then
+    if [ -f $INSTALL_PATH/downloadtmp/alist.tar.gz ]; then
       echo -e "${GREEN_COLOR} Alist ${download_VERSION} 下载成功 ${RES}"
     else
       echo -e "${RED_COLOR}下载 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
-      echo "正在回退更改"
-      mv /tmp/alist.bak $INSTALL_PATH/alist
-      echo "正在启动Alist"      
-      systemctl start alist
-      echo "更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
+      echo "${GREEN_COLOR}正在回退更改 ..."
+      mv $INSTALL_PATH/downloadtmp/alist.bak $INSTALL_PATH/alist
+      if [ "$is_termux" -eq 0 ]; then
+          #普通Linux机器
+          echo "${GREEN_COLOR}正在启动Alist"
+          systemctl start alist
+          echo -e "${GREEN_COLOR}Alist 启动完成！"
+      else
+          #Termux内
+          echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
+          bash /data/data/com.termux/files/home/start_alist.sh
+          echo -e "${GREEN_COLOR}Alist 启动完成！"
+      fi
+      echo "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
       exit 1
     fi
-    echo -e "\r\n${GREEN_COLOR}正在启动 Alist 进程${RES}"
-    systemctl start alist
+    #覆盖
+    echo "${GREEN_COLOR}正在更新 Alist ..."
+    tar zxf /tmp/alist.tar.gz -C $INSTALL_PATH/
+    #判断
+    if [ -f $INSTALL_PATH/alist ]; then
+    #解压后存在文件即更新成功
+      echo -e "${GREEN_COLOR} Alist 更新成功"
+    else
+    #不存在即为解压失败（原因可能为下载的压缩包出错、不完整等）
+      echo -e "${RED_COLOR}解压 alist-linux-$ARCH.tar.gz 出错，更新失败！${RES}"
+      echo "${GREEN_COLOR}正在回退更改 ..."
+      mv $INSTALL_PATH/downloadtmp/alist.bak $INSTALL_PATH/alist
+      echo "${RED_COLOR}更新失败，请检查你的网络状况或在本仓库提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
+      rm -f /tmp/alist*
+      exit 1
+    fi
+    if [ "$is_termux" -eq 0 ]; then
+        #普通Linux机器
+        echo "${GREEN_COLOR}正在启动 Alist"
+        systemctl start alist
+        echo -e "${GREEN_COLOR}Alist 启动完成！"
+    else
+        #Termux内
+        echo -e "${GREEN_COLOR}正在启动 Alist"
+        bash /data/data/com.termux/files/home/start_alist.sh
+        echo -e "${GREEN_COLOR}Alist 启动完成！"
+    fi
     echo -e "\r\n${GREEN_COLOR}Alist 已更新到最新稳定版！${RES}\r\n"
     # 删除临时文件
     rm -f /tmp/alist*
