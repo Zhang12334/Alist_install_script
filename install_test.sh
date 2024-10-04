@@ -284,7 +284,7 @@ SUCCESS() {
     echo -e "${GREEN_COLOR}随后 Alist 将在后台运行！"
     echo
     echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
-    nohup $INSTALL_PATH/alist server
+    $INSTALL_PATH/alist server
     echo -e "${GREEN_COLOR}Alist 启动完成！"
   fi
   echo -e "\r\n温馨提示：如果端口无法正常访问，请检查 \033[36m服务器安全组、本机防火墙、Alist状态\033[0m"
@@ -298,9 +298,11 @@ UNINSTALL() {
   if [ "$is_termux" -eq 1 ]; then
     #termux执行指令
     #kill进程
+    echo -e "${GREEN_COLOR}正在停止进程${RES}"
     alist_pid=$(pgrep -f "alist")
     kill -9 $alist_pid
     #删除目录
+    echo -e "${GREEN_COLOR}正在清除文件${RES}"
     rm -rf $INSTALL_PATH
     rm -rf /data/data/com.termux/files/home/start_alist.sh
   else
