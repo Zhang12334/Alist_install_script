@@ -81,7 +81,6 @@ GH_PROXY="$2"
 
 #各种检查
 if [ "$is_termux" -eq 1 ]; then
-    echo "检测到正在Termux环境中运行，正在使用无需 root 权限的方式安装..."
     INSTALL_PATH='/data/data/com.termux/files/home/alist_files'
 else
 	if [ "$(id -u)" != "0" ]; then
@@ -223,7 +222,7 @@ else
   #termux方法
   # 创建启动脚本
   cat >/data/data/com.termux/files/home/start_alist.sh <<EOF
-nohup $INSTALL_PATH/alist server &
+$INSTALL_PATH/alist server &
 EOF
 
 fi
@@ -298,6 +297,10 @@ UNINSTALL() {
   echo -e "${GREEN_COLOR}正在卸载 Alist ...${RES}\r\n"
   if [ "$is_termux" -eq 1 ]; then
     #termux执行指令
+    #kill进程
+    alist_pid=$(pgrep -f "alist")
+    kill -9 $alist_pid
+    #删除目录
     rm -rf $INSTALL_PATH
     rm -rf /data/data/com.termux/files/home/start_alist.sh
   else
