@@ -72,7 +72,7 @@ case "$choice" in
           return 0
         }
         if [[ "$CURRENT_VERSION" == "latest" ]]; then
-          echo "将安装为 $CURRENT_VERSION 版本"
+          echo "未输入内容，将安装最新版"
         elif ! version_ge "$CURRENT_VERSION" "$MIN_VERSION"; then
           echo "无效的版本号，必须大于等于 $MIN_VERSION"
           exit 1
@@ -104,7 +104,7 @@ case "$choice" in
           return 0
         }
         if [[ "$CURRENT_VERSION" == "latest" ]]; then
-          echo "将升级为 $CURRENT_VERSION 版本"
+          echo "未输入内容，将升级为最新版"
         elif ! version_ge "$CURRENT_VERSION" "$MIN_VERSION"; then
           echo "无效的版本号，必须大于等于 $MIN_VERSION"
           exit 1
