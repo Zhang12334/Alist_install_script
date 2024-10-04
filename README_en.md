@@ -24,12 +24,12 @@ bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist
 Thank you to all the friends who participated in the testing and provided Linux machines with different architectures!
 | Architecture | System           | Test Device  | Country/Region        | Install | Uninstall | Upgrade | Test Status | Provided by |
 |--------------|------------------|--------------|-----------------------|---------|-----------|---------|-------------|-------------|
-| ArmV7L       | Armbian-23.02     | Wankeyun     | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| Aarch64      | Ubuntu-20.04      | Oracle ARM64 | Canada                | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| Aarch64      | Termux-MIUI10<br>(Android6.0) | VIVO Y67     | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| X86_64       | Debian-12.6       | E5-2680V4    | Mainland China        | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| X86_64       | Debian-10.13      | i7-8700      | Luxembourg            | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| X86_64       | Debian-10         | E3-1245V2    | France                | ✅      | ✅        | ✅      | ✅          | Zhang       |
-| X86_64       | ArchLinux         | G4400        | Mainland China        | ✅      | ✅        | ✅      | ✅          | Tingfeng    |
-| x86_64       | Debian WSL2       | i5-9400F     | Mainland China (HK VPN)| ✅        |    ✅       |      ✅   |      ✅      | ZeroWolf    |
-| More to come |                  |              |                       |         |           |         |             |             |
+| ArmV7L       | Armbian-23.02     | Wankeyun     | Chinese mainland     | ✅      | ✅       | ✅      | ✅          | Zhang       |
+| Aarch64      | Ubuntu-20.04      | Oracle ARM64 | Canada               | ✅      | ✅       | ✅      | ✅          | Zhang       |
+| Aarch64      | Termux-MIUI10<br>(Android6.0) | VIVO Y67| Chinese mainland | ✅   | ✅       | ✅      | ✅          | Zhang       |
+| X86_64       | Debian-12.6       | E5-2680V4    | Chinese mainland     | ✅      | ✅       | ✅      | ✅          | Zhang       |
+| X86_64       | Debian-10.13      | i7-8700      | Luxembourg           | ✅      | ✅       | ✅      | ✅          | Zhang       |
+| X86_64       | Debian-10         | E3-1245V2    | France               | ✅      | ✅       | ✅      | ✅          | Zhang       |
+| X86_64       | ArchLinux         | G4400        | Chinese mainland     | ✅      | ✅       | ✅      | ✅          | Tingfeng    |
+| x86_64       | Debian WSL2       | i5-9400F     | Chinese mainland     | ✅      | ✅       | ✅      | ✅          | ZeroWolf    |
+| More to come |                   |              |                      |          |          |         |              |             |
