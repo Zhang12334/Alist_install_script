@@ -241,15 +241,17 @@ SUCCESS() {
   ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
   cd $INSTALL_PATH
-  adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
   if [ "$is_termux" -eq 1 ]; then
     bash /data/data/com.termux/files/home/start_alist.sh > /dev/null 2>&1 &
     bash /data/data/com.termux/files/home/stop_alist.sh > /dev/null 2>&1 &
+    adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 8)
+    ./alist admin set $adminpwd > /dev/null 2>&1 &
   else
+    adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
     systemctl start alist > /dev/null 2>&1 &
     systemctl stop alist > /dev/null 2>&1 &
+    ./alist admin set $adminpwd > /dev/null 2>&1 &
   fi
-  ./alist admin set $adminpwd > /dev/null 2>&1 &
   clear
   echo "Alist 安装成功！"
   echo
@@ -271,8 +273,12 @@ SUCCESS() {
   echo -e "配置文件路径：${GREEN_COLOR}$INSTALL_PATH/data/config.json${RES}"
   echo -e "-----------使用说明----------"
   echo -e "Alist账号名称：admin"
-  echo -e "自动生成强密码：$adminpwd"
-  echo -e "程序使用urandom生成20位强密码"
+  echo -e "自动生成密码：$adminpwd"
+  if [ "$is_termux" -eq 0 ]; then
+    echo -e "程序使用urandom生成20位强密码"
+  else
+    echo -e "因受Termux特性影响，程序只能生成8位密码"
+  fi
   echo -e "本密码仅显示一次，请妥善保存！"  
   echo -e "请勿泄漏本界面内容给任何人！！"  
   echo -e "---------密码更改方式--------"  
