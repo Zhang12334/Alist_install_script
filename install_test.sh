@@ -4,7 +4,10 @@
 download_VERSION=$3
 
 #新增termux检测
-is_termux=
+is_termux=0
+if [ -d "/data/data/com.termux" ]; then
+   is_termux=1
+fi
 
 
 #固定安装路径
@@ -77,33 +80,38 @@ fi
 GH_PROXY="$2"
 
 #各种检查
-
-if [ "$(id -u)" != "0" ]; then
-  echo -e "\r\n${RED_COLOR}出错了，本脚本仅支持 root 权限执行\r\n请使用 root 权限重试！${RES}\r\n" 1>&2
-  exit 1
-elif [ "$ARCH" == "UNKNOWN" ]; then
-  echo -e "\r\n${RED_COLOR}出错了${RES}，一键安装目前仅支持主流Linux架构\r\n当前架构：$platform\r\n如确定为Alist存在发行版的架构请附带此截图提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
-  exit 1
-elif ! command -v systemctl >/dev/null 2>&1; then
-  echo -e "\r\n${RED_COLOR}出错了${RES}，你当前系统未安装systemctl，建议参考官网手动安装！r\n" 1>&2
-  exit 1
+if [ "$is_termux" -eq 1 ]; then
+    echo "检测到正在Termux环境中运行，正在使用无需 root 权限的方式安装..."
+    INSTALL_PATH='/data/data/com.termux/files/home/alist_files'
 else
-  if command -v netstat >/dev/null 2>&1; then
-    check_port=$(netstat -lnp | grep 5244 | awk '{print $7}' | awk -F/ '{print $1}')
-  else
-    echo -e "${GREEN_COLOR}端口检查 ...${RES}"
-    if command -v yum >/dev/null 2>&1; then
-      yum install net-tools -y >/dev/null 2>&1
-      check_port=$(netstat -lnp | grep 5244 | awk '{print $7}' | awk -F/ '{print $1}')
-    else
-      apt-get update >/dev/null 2>&1
-      apt-get install net-tools -y >/dev/null 2>&1
-      check_port=$(netstat -lnp | grep 5244 | awk '{print $7}' | awk -F/ '{print $1}')
-    fi
-  fi
+	if [ "$(id -u)" != "0" ]; then
+	  echo -e "\r\n${RED_COLOR}出错了，本脚本仅支持 root 权限执行\r\n请使用 root 权限重试！${RES}\r\n" 1>&2
+	  exit 1
+	elif [ "$ARCH" == "UNKNOWN" ]; then
+	  echo -e "\r\n${RED_COLOR}出错了${RES}，一键安装目前仅支持主流Linux架构\r\n当前架构：$platform\r\n如确定为Alist存在发行版的架构请附带此截图提交Issue!\r\nGithub仓库地址：https://github.com/zhang12334/alist_install_bash\r\n" 1>&2
+	  exit 1
+	elif ! command -v systemctl >/dev/null 2>&1; then
+	  echo -e "\r\n${RED_COLOR}出错了${RES}，你当前系统未安装systemctl，建议参考官网手动安装！r\n" 1>&2
+	  exit 1
+	else
+	  if command -v netstat >/dev/null 2>&1; then
+	    check_port=$(netstat -lnp | grep 5244 | awk '{print $7}' | awk -F/ '{print $1}')
+	  else
+	    echo -e "${GREEN_COLOR}端口检查 ...${RES}"
+	    if command -v yum >/dev/null 2>&1; then
+	      yum install net-tools -y >/dev/null 2>&1
+	      check_port=$(netstat -lnp | grep 5244 | awk '{print $7}' | awk -F/ '{print $1}')
+	    else
+	      apt-get update >/dev/null 2>&1
+	      apt-get install net-tools -y >/dev/null 2>&1
+	      check_port=$(netstat -lnp | grep 5244 | awk '{print $7}' | awk -F/ '{print $1}')
+	    fi
+	  fi
+	fi
 fi
 
 CHECK() {
+  #存在alist程序
   if [ -f "$INSTALL_PATH/alist" ]; then
     echo "此位置已经安装，请选择其他位置，或使用更新命令"
     exit 0
@@ -179,7 +187,9 @@ INIT() {
     rm -f $INSTALL_PATH/alist.db
   fi
 
-  # 创建 systemd
+if [ "$is_termux" -eq 0 ]; then
+#普通系统方法
+# 创建 systemd
   cat >/etc/systemd/system/alist.service <<EOF
 [Unit]
 Description=Alist service
@@ -199,6 +209,16 @@ EOF
   # 重载systemctl并添加开机启动
   systemctl daemon-reload
   systemctl enable alist >/dev/null 2>&1
+
+else
+  #termux方法
+  # 创建启动脚本
+  cat >/data/data/com.termux/files/home/start_alist.sh <<EOF
+nohup $INSTALL_PATH/alist server &
+EOF
+
+fi
+
 }
 
 SUCCESS() {
@@ -206,7 +226,7 @@ SUCCESS() {
   ipv6_address_out=$(curl -6 -s 6.ipw.cn)
   ipv4_address=$(ip -4 addr show | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | grep -v '^127\.0\.0\.1$' | sort -V | head -n 1)
   ipv4_address_out=$(curl -4 -s 4.ipw.cn)
-  cd /opt/alist
+  cd $INSTALL_PATH
   adminpwd=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' | head -c 20)
   ./alist admin set $adminpwd > /dev/null 2>&1 &
   clear
@@ -242,15 +262,19 @@ SUCCESS() {
   echo -e "或者手动设置新密码:"
   echo -e "${GREEN_COLOR}./alist admin set ${RES}${RED_COLOR}NEW_PASSWORD${RES}"
   echo -e "----------------------------"
-  
-  #重启Alist
-  systemctl restart alist
+  if [ "$is_termux" -eq 0 ]; then
+    #重启Alist
+    systemctl restart alist
 
-  echo
-  echo -e "查看状态：${GREEN_COLOR}systemctl status alist${RES}"
-  echo -e "启动服务：${GREEN_COLOR}systemctl start alist${RES}"
-  echo -e "重启服务：${GREEN_COLOR}systemctl restart alist${RES}"
-  echo -e "停止服务：${GREEN_COLOR}systemctl stop alist${RES}"
+    echo
+    echo -e "查看状态：${GREEN_COLOR}systemctl status alist${RES}"
+    echo -e "启动服务：${GREEN_COLOR}systemctl start alist${RES}"
+    echo -e "重启服务：${GREEN_COLOR}systemctl restart alist${RES}"
+    echo -e "停止服务：${GREEN_COLOR}systemctl stop alist${RES}"
+  else
+    echo -e "启动服务：${GREEN_COLOR}在默认目录下执行 ./start_alist${RES}"
+    echo -e "${GREEN_COLOR}随后 Alist 将在后台运行！"
+  fi
   echo -e "\r\n温馨提示：如果端口无法正常访问，请检查 \033[36m服务器安全组、本机防火墙、Alist状态\033[0m"
   echo
 }
@@ -259,18 +283,26 @@ SUCCESS() {
 UNINSTALL() {
   clear
   echo -e "${GREEN_COLOR}正在卸载 Alist ...${RES}\r\n"
-  echo -e "${GREEN_COLOR}正在关闭开机自启${RES}"
-  systemctl disable alist >/dev/null 2>&1
-  echo -e "${GREEN_COLOR}正在停止进程${RES}"
-  systemctl stop alist >/dev/null 2>&1
-  echo -e "${GREEN_COLOR}正在清除文件${RES}"
-  rm -rf $INSTALL_PATH /etc/systemd/system/alist.service
-  echo -e "${GREEN_COLOR}正在重载systemctl${RES}"
-  systemctl daemon-reload
+  if [ "$is_termux" -eq 1 ]; then
+    #termux执行指令
+    rm -rf $INSTALL_PATH
+    rm -rf /data/data/com.termux/files/home/start_alist.sh
+  else
+    #普通linux执行指令
+    echo -e "${GREEN_COLOR}正在关闭开机自启${RES}"
+    systemctl disable alist >/dev/null 2>&1
+    echo -e "${GREEN_COLOR}正在停止进程${RES}"
+    systemctl stop alist >/dev/null 2>&1
+    echo -e "${GREEN_COLOR}正在清除文件${RES}"
+    rm -rf $INSTALL_PATH /etc/systemd/system/alist.service
+    echo -e "${GREEN_COLOR}正在重载systemctl${RES}"
+    systemctl daemon-reload
+  fi
   echo -e "\r\n${GREEN_COLOR}Alist 已成功卸载！${RES}\r\n"
 }
 
 UPDATE() {
+  
   clear
   if [ ! -f "$INSTALL_PATH/alist" ]; then
     echo -e "\r\n${RED_COLOR}出错了${RES}，当前系统未安装 Alist，请先安装再升级！\r\n"
