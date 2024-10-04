@@ -175,9 +175,9 @@ INSTALL() {
     echo -e "${GREEN_COLOR} alist-linux-$ARCH.tar.gz 下载成功 ${RES}"
   else
 	if [ "$download_VERSION" == "latest" ]; then
-		echo -e "${RED_COLOR} alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络状况！${RES}"
+		echo -e "${RED_COLOR} alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络状况或尝试更换加速源！${RES}"
 	else
-		echo -e "${RED_COLOR} v${download_VERSION} 版 alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络或检查安装版本号是否有效！${RES}"
+		echo -e "${RED_COLOR} v${download_VERSION} 版 alist-linux-$ARCH.tar.gz 下载失败，请检查你的网络、尝试更换加速源或检查安装版本号是否有效！${RES}"
 	fi
     exit 1
   fi
@@ -224,9 +224,12 @@ else
   cat >/data/data/com.termux/files/home/start_alist.sh <<EOF
 nohup $INSTALL_PATH/alist server &
 EOF
+  # 创建停止脚本
+  cat >/data/data/com.termux/files/home/stop_alist.sh <<EOF
+alist_pid=$(pgrep -f "alist")\n\nkill -9 $alist_pid\n\necho "Alist 已停止！"
+EOF
 
 fi
-
 }
 
 SUCCESS() {
@@ -271,6 +274,7 @@ SUCCESS() {
   echo -e "${GREEN_COLOR}./alist admin set ${RES}${RED_COLOR}NEW_PASSWORD${RES}"
   echo -e "----------------------------"
   if [ "$is_termux" -eq 0 ]; then
+  #普通Linux机器
     #重启Alist
     systemctl restart alist
 
@@ -280,8 +284,10 @@ SUCCESS() {
     echo -e "重启服务：${GREEN_COLOR}systemctl restart alist${RES}"
     echo -e "停止服务：${GREEN_COLOR}systemctl stop alist${RES}"
   else
-    echo -e "启动服务：${GREEN_COLOR}在默认目录下执行 ./start_alist${RES}"
-    echo -e "${GREEN_COLOR}随后 Alist 将在后台运行！"
+  #Termux内
+    echo -e "${GREEN_COLOR}启动服务：在默认目录下执行 ./start_alist，随后 Alist 将在后台运行！${RES}"
+    echo -e "${GREEN_COLOR}停止服务：在默认目录下执行 ./stop_alist"
+    echo -e "由于Termux特殊环境问题，暂不支持自动启动！关闭或重启后需要手动开启服务！"
     echo
     echo -e "${GREEN_COLOR}Alist 正在启动中 ..."
     bash /data/data/com.termux/files/home/start_alist.sh
