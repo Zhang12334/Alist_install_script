@@ -33,3 +33,6 @@ Thank you to all the friends who participated in the testing and provided Linux 
 | X86_64       | ArchLinux        | G4400        | Chinese mainland     | ✅      | ✅       | ✅      | ✅         | Tingfeng    |
 | x86_64       | Debian WSL2      | i5-9400F     | Chinese mainland     | ✅      | ✅       | ✅      | ✅         | ZeroWolf    |
 | More to come |                  |              |                      |          |          |          |            |             |
+
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/Zhang12334/Alist_install_script.svg?variant=adaptive)](https://starchart.cc/Zhang12334/Alist_install_script)
