@@ -32,3 +32,6 @@ bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist
 | X86_64    | ArchLinux      | G4400        | 中国大陆      | ✅    | ✅    | ✅    | ✅    | 听风    |
 | x86_64    | Debian WSL2    | i5-9400F     |中国大陆       | ✅    | ✅    | ✅    | ✅    | ZeroWolf|
 | 欢迎补充  |                |              |               |        |       |        |       |         |
+
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/Zhang12334/Alist_install_script.svg?variant=adaptive)](https://starchart.cc/Zhang12334/Alist_install_script)
