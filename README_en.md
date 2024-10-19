@@ -14,7 +14,7 @@ After installation, a 20-character strong password is automatically generated us
 Supports multiple architectures, various Linux kernel versions, and multiple systems (even runs on Android!).
 
 # How to use?
-SSH connect to your server or Termux openssh device, then run this command (currently only available in the Chinese version)<br>
+Use SSH to connect to your Linux device and execute this command (currently only available in Chinese, English translations are welcome)<br>
 
 ```bash
 bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh)
