@@ -1,6 +1,6 @@
 #!/bin/bash
 # 下载地址
-# download_url="https://github.com/Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
+download_url="https://github.com/Zhang12334/Alist_install_bash/releases/latest/download/install.sh"
 #测试文件地址
 test_file_url="https://github.com/Zhang12334/test_ghmirror/releases/latest/download/test.txt"
 
