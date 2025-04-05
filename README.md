@@ -16,7 +16,7 @@
 # 使用方式
 SSH连接服务器后执行下方命令<br>
 ```bash
-bash <(curl -L https://ghp.ci/https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh)
+bash <(curl -L https://raw.githubusercontent.com/Zhang12334/Alist_install_bash/refs/heads/main/run.sh)
 ```
 
 # 可用性测试
