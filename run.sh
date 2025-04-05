@@ -7,25 +7,17 @@ test_file_url="https://github.com/Zhang12334/test_ghmirror/releases/latest/downl
 # 清屏
 clear
 echo "请选择要使用的Github加速地址"
-echo "1. 使用 ghp.ci [ 推荐 ]"
-echo "2. 使用 ghproxy.net"
-echo "3. 使用 ghproxy.cn"
-echo "4. 使用 github.moeyy.xyz"
-echo "5. 使用 gh.llkk.cc [ 推荐 ]"
-echo "6. 自定义加速地址"
-echo "7. 不使用加速地址"
+echo "1. 使用 gh-proxy [ 推荐 ]"
+echo "2. 自定义加速地址"
+echo "3. 不使用加速地址"
 echo
 read -p "请输入你的选择: " choice1
 
 # 根据用户选择设置代理
 case $choice1 in
-    1) useproxy="https://ghp.ci/" ;;
-    2) useproxy="https://ghproxy.net/" ;;
-    3) useproxy="https://ghproxy.cn/" ;;
-    4) useproxy="https://github.moeyy.xyz/" ;;
-    5) useproxy="https://gh.llkk.cc/" ;;
-    6) 
-        read -p "请输入自定义加速地址（例：https://ghp.ci/）: " custom_proxy
+    1) useproxy="https://gh-proxy.com/" ;;
+    2) 
+        read -p "请输入自定义加速地址（例：https://gh-proxy.com/）: " custom_proxy
         # 验证自定义加速地址是否有效
         if curl -fsSL "${custom_proxy}${test_file_url}" | grep -q "114514"; then
             rm -f test.txt
@@ -33,14 +25,14 @@ case $choice1 in
             echo "已选择自定义加速地址: $custom_proxy"
         else
             rm -f test.txt
-            echo "自定义加速地址无效，自动使用ghp.ci加速地址"
-            useproxy="https://ghp.ci/" 
+            echo "自定义加速地址无效，自动使用gh-proxy加速地址"
+            useproxy="https://gh-proxy.com/" 
         fi
         ;;
-    7) useproxy="" ;;
+    3) useproxy="" ;;
     *) 
-        echo "无效的选择，默认使用ghp.ci加速地址"
-        useproxy="https://ghp.ci/" 
+        echo "无效的选择，默认使用gh-proxy加速地址"
+        useproxy="https://gh-proxy.com/" 
         ;;
 esac
 echo
